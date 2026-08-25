@@ -1,0 +1,28 @@
+version: 2
+
+project_name: serverguard
+
+builds:
+  - id: serverguard
+    main: .
+    binary: serverguard
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - id: binaries
+    ids:
+      - serverguard
+    formats:
+      - binary
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: checksums.txt
